@@ -513,7 +513,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "0.0.1.0s1\r\nAdded a start screen. \r\nAdded a Start Original button.\r\nAdded
     a Start Updated button.\r\nAdded a Credits button. \r\nAdded a Version Notes
-    button.\r\nAdded a Quit Game button.\r\nAdded a Back button.\r\n"
+    button.\r\nAdded a Quit Game button.\r\nAdded a Back button.\r\n\nCONTROLS:\r\nDetonate:
+    Left Click\r\nFlag: Right Click\r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
