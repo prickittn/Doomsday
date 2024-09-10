@@ -10,6 +10,9 @@ public class Game : MonoBehaviour
     private Cell[,] state;
     private bool gameover;
 
+    public Shaker Shaker;
+    public float duration = 1f;
+
     private void OnValidate()
     {
         mineCount = Mathf.Clamp(mineCount, 0, width * height);
@@ -210,6 +213,7 @@ public class Game : MonoBehaviour
     private void Explode(Cell cell)
     {
         Debug.Log("you lost, dummy.");
+        Shaker.Shake(duration);
         gameover = true;
 
         cell.revealed = true;
