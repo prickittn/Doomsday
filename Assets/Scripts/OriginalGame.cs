@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Game : MonoBehaviour
+public class OriginalGame : MonoBehaviour
 {
     public int width = 16;
     public int height = 16;
@@ -10,11 +10,6 @@ public class Game : MonoBehaviour
     private Cell[,] state;
     private bool gameover;
 
-    public Shaker Shaker;
-    public float duration = 1f;
-
-    AudioManager audioManager;
-
     private void OnValidate()
     {
         mineCount = Mathf.Clamp(mineCount, 0, width * height);
@@ -23,7 +18,6 @@ public class Game : MonoBehaviour
     private void Awake()
     {
         board = GetComponentInChildren<Board>();
-        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     private void Start()
@@ -158,7 +152,6 @@ public class Game : MonoBehaviour
 
         cell.flagged = !cell.flagged;
         state[cellPosition.x, cellPosition.y] = cell;
-        audioManager.PlaySFX(audioManager.flag);
         board.Draw(state);
     }
 
@@ -179,14 +172,12 @@ public class Game : MonoBehaviour
                 break;
 
             case Cell.Type.Empty:
-                audioManager.PlaySFX(audioManager.flood);
                 Flood(cell);
                 CheckWinCondition();
                 break;
 
             default:
                 cell.revealed = true;
-                audioManager.PlaySFX(audioManager.cellReveal);
                 state[cellPosition.x, cellPosition.y] = cell;
                 CheckWinCondition();
                 break;
@@ -209,18 +200,12 @@ public class Game : MonoBehaviour
             Flood(GetCell(cell.position.x + 1, cell.position.y));
             Flood(GetCell(cell.position.x, cell.position.y - 1));
             Flood(GetCell(cell.position.x, cell.position.y + 1));
-            Flood(GetCell(cell.position.x - 1, cell.position.y - 1));
-            Flood(GetCell(cell.position.x - 1, cell.position.y + 1));
-            Flood(GetCell(cell.position.x + 1, cell.position.y - 1));
-            Flood(GetCell(cell.position.x + 1, cell.position.y + 1));
         }
     }
 
     private void Explode(Cell cell)
     {
         Debug.Log("you lost, dummy.");
-        Shaker.Shake(duration);
-        audioManager.PlaySFX(audioManager.bombExplode);
         gameover = true;
 
         cell.revealed = true;
