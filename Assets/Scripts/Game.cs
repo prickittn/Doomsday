@@ -24,6 +24,7 @@ public class Game : MonoBehaviour
     {
         board = GetComponentInChildren<Board>();
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        audioManager.PlaySFX(audioManager.menuClick);
     }
 
     private void Start()

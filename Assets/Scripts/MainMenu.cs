@@ -10,34 +10,36 @@ public class MainMenu : MonoBehaviour
     public string UpdatedGameScene;
     public string CreditsScene;
     public string VersionNotesScene;
-    AudioManager audioManager;
+    MenuAudioManager audioManager;
 
     private void Awake()
     {
-        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        audioManager = GameObject.FindGameObjectWithTag("MenuAudio").GetComponent<MenuAudioManager>();
     }
 
     public void StartOriginal()
     {
         audioManager.PlaySFX(audioManager.menuClick);
+        DontDestroyOnLoad(audioManager);
         SceneManager.LoadScene(OriginalGameScene);
     }
 
     public void StartUpdated()
     {
-        audioManager.PlaySFX(audioManager.menuClick);
         SceneManager.LoadScene(UpdatedGameScene);
     }
 
     public void StartCredits()
     {
         audioManager.PlaySFX(audioManager.menuClick);
+        DontDestroyOnLoad(audioManager);
         SceneManager.LoadScene(CreditsScene);
     }
 
     public void StartVersionNotes()
     {
         audioManager.PlaySFX(audioManager.menuClick);
+        DontDestroyOnLoad(audioManager);
         SceneManager.LoadScene(VersionNotesScene);
     }
 

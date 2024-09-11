@@ -1325,8 +1325,8 @@ GameObject:
   - component: {fileID: 1505696942}
   - component: {fileID: 1505696943}
   m_Layer: 0
-  m_Name: AudioManager
-  m_TagString: Audio
+  m_Name: MenuAudioManager
+  m_TagString: MenuAudio
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1357,15 +1357,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1505696940}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b4dd4fdbcc221f4b90b76ed0ce4f17d, type: 3}
+  m_Script: {fileID: 11500000, guid: cc21a4d49fdeb5c42bc27ea17f170658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   musicSource: {fileID: 1208918837}
   SFXSource: {fileID: 1786063420}
-  bombExplode: {fileID: 0}
-  cellReveal: {fileID: 0}
-  flag: {fileID: 0}
-  flood: {fileID: 0}
   menuClick: {fileID: 8300000, guid: 7dc60c5e086573740ab3220fe82eb7f8, type: 3}
 --- !u!1 &1576781932
 GameObject:

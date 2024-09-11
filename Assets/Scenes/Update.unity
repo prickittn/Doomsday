@@ -766,6 +766,7 @@ MonoBehaviour:
   cellReveal: {fileID: 8300000, guid: 8405a3ff94f951d44a2745d5d9996890, type: 3}
   flag: {fileID: 8300000, guid: 07a79303ed3d7e84391a655627a286a9, type: 3}
   flood: {fileID: 8300000, guid: c3b30316bfc3c164384502661f2fbfae, type: 3}
+  menuClick: {fileID: 8300000, guid: 7dc60c5e086573740ab3220fe82eb7f8, type: 3}
 --- !u!4 &1263068404
 Transform:
   m_ObjectHideFlags: 0
