@@ -511,10 +511,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "0.0.1.0s1\r\nAdded a start screen. \r\nAdded a Start Original button.\r\nAdded
-    a Start Updated button.\r\nAdded a Credits button. \r\nAdded a Version Notes
-    button.\r\nAdded a Quit Game button.\r\nAdded a Back button.\r\n\nCONTROLS:\r\nDetonate:
-    Left Click\r\nFlag: Right Click\r\n"
+  m_text: "CONTROLS:\r\nDetonate: Left Click\r\nFlag: Right Click\r\n\n0.0.1.0s1\r\nAdded
+    a start screen. \r\nAdded a Start Original button.\r\nAdded a Start Updated button.\r\nAdded
+    a Credits button. \r\nAdded a Version Notes button.\r\nAdded a Quit Game button
+    to the Menu.\r\nAdded a Back button.\r\n\n0.0.1.1s1\nAdded a Quit Game button
+    to the game.\nAdded two splash screens on startup.\nAdded audio to all buttons
+    on the main menu.\nAdded audio to all gameplay interactions.\nAdded screen shake
+    on bomb explosion.\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
