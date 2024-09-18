@@ -1362,6 +1362,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 1208918837}
   SFXSource: {fileID: 1786063420}
+  background: {fileID: 8300000, guid: aed83c3f7add9864aba2e48c93968dff, type: 3}
   menuClick: {fileID: 8300000, guid: 7dc60c5e086573740ab3220fe82eb7f8, type: 3}
 --- !u!1 &1576781932
 GameObject:

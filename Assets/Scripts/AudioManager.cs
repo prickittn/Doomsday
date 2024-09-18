@@ -14,9 +14,23 @@ public class AudioManager : MonoBehaviour
     public AudioClip flag;
     public AudioClip flood;
     public AudioClip menuClick;
+    public AudioClip background;
+    public AudioClip failure;
+    public AudioClip success;
+
+    private void Start()
+    {
+        musicSource.clip = background;
+        musicSource.Play();
+    }
 
     public void PlaySFX(AudioClip clip)
     {
         SFXSource.PlayOneShot(clip);
+    }
+
+    public void StopMusic()
+    {
+        musicSource.Stop();
     }
 }

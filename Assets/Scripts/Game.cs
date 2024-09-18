@@ -1,4 +1,6 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
@@ -14,6 +16,13 @@ public class Game : MonoBehaviour
     public float duration = 1f;
 
     AudioManager audioManager;
+
+    public float TimeLeft;
+    public bool TimerOn = false;
+    public TMP_Text TimerTxt;
+
+    public GameOverScreen gameOverScreen;
+    public GameWinScreen gameWinScreen;
 
     private void OnValidate()
     {
@@ -36,6 +45,7 @@ public class Game : MonoBehaviour
     {
         state = new Cell[width, height];
         gameover = false;
+        TimerOn = true;
 
         GenerateCells();
         GenerateMines();
@@ -134,7 +144,24 @@ public class Game : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R)) {
+        Cell cell = GetCell(1, 1);
+        if (TimerOn)
+        {
+            if (TimeLeft > 0)
+            {
+                TimeLeft -= Time.deltaTime;
+                updateTimer(TimeLeft);
+            }
+            else
+            {
+                Debug.Log("Time is up!");
+                TimeLeft = 0;
+                TimerOn = false;
+                Explode(cell);
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.R)) 
+        {
             NewGame();
         }
         else if (!gameover)
@@ -220,8 +247,13 @@ public class Game : MonoBehaviour
     private void Explode(Cell cell)
     {
         Debug.Log("you lost, dummy.");
+
         Shaker.Shake(duration);
+
+        audioManager.StopMusic();
         audioManager.PlaySFX(audioManager.bombExplode);
+        audioManager.PlaySFX(audioManager.failure);
+
         gameover = true;
 
         cell.revealed = true;
@@ -241,6 +273,7 @@ public class Game : MonoBehaviour
                 }
             }
         }
+        gameOverScreen.Setup();
     }
 
     private void CheckWinCondition()
@@ -259,6 +292,8 @@ public class Game : MonoBehaviour
 
         Debug.Log("Yippee!");
         gameover = true;
+        audioManager.StopMusic();
+        audioManager.PlaySFX(audioManager.success);
 
         for (int x = 0; x < width; x++)
         {
@@ -273,6 +308,7 @@ public class Game : MonoBehaviour
                 }
             }
         }
+        gameWinScreen.Setup();
     }
 
     private Cell GetCell(int x, int y)
@@ -287,6 +323,16 @@ public class Game : MonoBehaviour
     private bool IsValid(int x, int y)
     {
         return x >= 0 && x < width && y >= 0 && y < height;
+    }
+
+    void updateTimer(float currentTime)
+    {
+        currentTime += 1;
+
+        float minutes = Mathf.FloorToInt(currentTime / 60);
+        float seconds = Mathf.FloorToInt(currentTime % 60);
+
+        TimerTxt.SetText(string.Format("{0}:{1}", minutes, seconds));
     }
 
 }

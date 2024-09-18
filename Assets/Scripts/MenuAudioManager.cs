@@ -9,10 +9,22 @@ public class MenuAudioManager : MonoBehaviour
     [SerializeField] AudioSource SFXSource;
 
     [Header("--------Audio Clip--------")]
+    public AudioClip background;
     public AudioClip menuClick;
+
+    private void Start()
+    {
+        musicSource.clip = background;
+        musicSource.Play();
+    }
 
     public void PlaySFX(AudioClip clip)
     {
         SFXSource.PlayOneShot(clip);
+    }
+
+    public void StopMusic()
+    {
+        musicSource.Stop();
     }
 }

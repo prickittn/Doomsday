@@ -20,12 +20,14 @@ public class MainMenu : MonoBehaviour
     public void StartOriginal()
     {
         audioManager.PlaySFX(audioManager.menuClick);
+        audioManager.StopMusic();
         DontDestroyOnLoad(audioManager);
         SceneManager.LoadScene(OriginalGameScene);
     }
 
     public void StartUpdated()
     {
+        audioManager.StopMusic();
         SceneManager.LoadScene(UpdatedGameScene);
     }
 
