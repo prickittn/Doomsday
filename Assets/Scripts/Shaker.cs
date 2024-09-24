@@ -44,9 +44,7 @@ public class Shaker : MonoBehaviour
             _target.localPosition = randomPoint;
             yield return null;
         }
-
             _pendingShakeDuration = 0f;
-            _target.localPosition = _initialPos;
             _isShaking = false;
             
     }
