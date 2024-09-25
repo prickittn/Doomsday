@@ -143,8 +143,7 @@ public class Game : MonoBehaviour
     }
 
     private void Update()
-    {
-        Cell cell = GetCell(1, 1);
+    { 
         if (TimerOn)
         {
             if (TimeLeft > 0)
@@ -154,17 +153,19 @@ public class Game : MonoBehaviour
             }
             else
             {
+                Cell cell = GetCell(1, 1);
                 Debug.Log("Time is up!");
                 TimeLeft = 0;
                 TimerOn = false;
                 Explode(cell);
             }
         }
+        
         if (Input.GetKeyDown(KeyCode.R)) 
         {
             NewGame();
         }
-        else if (!gameover)
+        else if (!gameover && Time.timeScale == 1f)
         {
             if (Input.GetMouseButtonDown(1)) {
                 Flag();
@@ -332,7 +333,14 @@ public class Game : MonoBehaviour
         float minutes = Mathf.FloorToInt(currentTime / 60);
         float seconds = Mathf.FloorToInt(currentTime % 60);
 
-        TimerTxt.SetText(string.Format("{0}:{1}", minutes, seconds));
+        if (seconds < 10)
+        {
+            TimerTxt.SetText(string.Format("{0}:0{1}", minutes, seconds));
+        }
+        else
+        {
+            TimerTxt.SetText(string.Format("{0}:{1}", minutes, seconds));
+        }
     }
 
 }
