@@ -523,8 +523,9 @@ MonoBehaviour:
     over screen.\nAdded a game victory screen.\nAdded a game over sound effect.\nAdded
     a game win sound effect.\nAdded Play Again and Main Menu buttons to the game
     end screens. \n\n0.0.1.0s4\nAdded a pause menu.\nAdded custom fonts to each text
-    field.\nRestylized menu fields.\nFixed \"gamebreaking\" bug that prevented users
-    from clicking the correct cell."
+    field.\nRestylized menu fields.\nAdded a \"0\" in front of seconds on the timer
+    when under 10.\nFixed \"gamebreaking\" bug that prevented users from clicking
+    the correct cell."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
