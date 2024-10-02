@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,12 +9,15 @@ public class Easy : MonoBehaviour
     public int width = 16;
     public int height = 16;
     public int mineCount = 32;
+    public int hintCount = 3;
+    public GameObject hintSpritePrefab;
 
     private Board board;
     private Cell[,] state;
     private bool gameover;
 
     public TMP_Text MineCountTxt;
+    public TMP_Text HintCountTxt;
 
     public Shaker Shaker;
     public float duration = 1f;
@@ -26,7 +31,7 @@ public class Easy : MonoBehaviour
     {
         mineCount = Mathf.Clamp(mineCount, 0, width * height);
     }
- 
+
     private void Awake()
     {
         board = GetComponentInChildren<Board>();
@@ -44,7 +49,7 @@ public class Easy : MonoBehaviour
         state = new Cell[width, height];
         gameover = false;
         MineCountTxt.SetText(string.Format("Mines Left: {0}", mineCount));
-
+        HintCountTxt.SetText(string.Format("Hints: {0}", hintCount));
 
         GenerateCells();
         GenerateMines();
@@ -70,7 +75,7 @@ public class Easy : MonoBehaviour
 
     private void GenerateMines()
     {
-        for(int i = 0; i < mineCount; i++)
+        for (int i = 0; i < mineCount; i++)
         {
             int x = Random.Range(0, width);
             int y = Random.Range(0, height);
@@ -84,7 +89,8 @@ public class Easy : MonoBehaviour
                     x = 0;
                     y++;
 
-                    if (y >= height) {
+                    if (y >= height)
+                    {
                         y = 0;
                     }
                 }
@@ -102,13 +108,15 @@ public class Easy : MonoBehaviour
             {
                 Cell cell = state[x, y];
 
-                if (cell.type == Cell.Type.Mine) {
+                if (cell.type == Cell.Type.Mine)
+                {
                     continue;
                 }
 
                 cell.number = CountMines(x, y);
 
-                if (cell.number > 0) {
+                if (cell.number > 0)
+                {
                     cell.type = Cell.Type.Number;
                 }
 
@@ -123,16 +131,18 @@ public class Easy : MonoBehaviour
 
         for (int adjacentX = -1; adjacentX <= 1; adjacentX++)
         {
-            for(int adjacentY = -1;adjacentY <= 1; adjacentY++)
+            for (int adjacentY = -1; adjacentY <= 1; adjacentY++)
             {
-                if (adjacentX == 0 && adjacentY == 0) {
+                if (adjacentX == 0 && adjacentY == 0)
+                {
                     continue;
                 }
 
                 int x = cellX + adjacentX;
                 int y = cellY + adjacentY;
 
-                if (GetCell(x, y).type == Cell.Type.Mine) {
+                if (GetCell(x, y).type == Cell.Type.Mine)
+                {
                     count++;
                 }
             }
@@ -142,16 +152,19 @@ public class Easy : MonoBehaviour
     }
 
     private void Update()
-    {         
-        if (Input.GetKeyDown(KeyCode.R)) 
+    {
+        if (Input.GetKeyDown(KeyCode.R))
         {
             NewGame();
         }
         else if (!gameover && Time.timeScale == 1f)
         {
-            if (Input.GetMouseButtonDown(1)) {
+            if (Input.GetMouseButtonDown(1))
+            {
                 Flag();
-            } else if (Input.GetMouseButtonDown(0)) {
+            }
+            else if (Input.GetMouseButtonDown(0))
+            {
                 Reveal();
             }
         }
@@ -163,31 +176,35 @@ public class Easy : MonoBehaviour
         Vector3Int cellPosition = board.tilemap.WorldToCell(worldPosition);
         Cell cell = GetCell(cellPosition.x, cellPosition.y);
 
-        if (cell.type == Cell.Type.Invalid || cell.revealed) {
+        if (cell.type == Cell.Type.Invalid || cell.revealed)
+        {
             return;
         }
 
-        if (cell.flagged == true){
-            this.mineCount ++;
+        if (cell.flagged == true)
+        {
+            this.mineCount++;
         }
-        else{
-            this.mineCount --;
+        else
+        {
+            this.mineCount--;
         }
 
-        cell.flagged = !cell.flagged; 
+        cell.flagged = !cell.flagged;
         state[cellPosition.x, cellPosition.y] = cell;
         audioManager.PlaySFX(audioManager.flag);
         MineCountTxt.SetText(string.Format("Mines Left: {0}", mineCount));
         board.Draw(state);
     }
 
-    private void Reveal ()
+    private void Reveal()
     {
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3Int cellPosition = board.tilemap.WorldToCell(worldPosition);
         Cell cell = GetCell(cellPosition.x, cellPosition.y);
 
-        if (cell.type == Cell.Type.Invalid || cell.revealed || cell.flagged) {
+        if (cell.type == Cell.Type.Invalid || cell.revealed || cell.flagged)
+        {
             return;
         }
 
@@ -268,14 +285,15 @@ public class Easy : MonoBehaviour
     }
 
     private void CheckWinCondition()
-    { 
+    {
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
             {
                 Cell cell = state[x, y];
 
-                if (cell.type != Cell.Type.Mine && !cell.revealed) {
+                if (cell.type != Cell.Type.Mine && !cell.revealed)
+                {
                     return;
                 }
             }
@@ -304,9 +322,12 @@ public class Easy : MonoBehaviour
 
     private Cell GetCell(int x, int y)
     {
-        if (IsValid(x, y)) {
+        if (IsValid(x, y))
+        {
             return state[x, y];
-        } else {
+        }
+        else
+        {
             return new Cell();
         }
     }
@@ -314,5 +335,70 @@ public class Easy : MonoBehaviour
     private bool IsValid(int x, int y)
     {
         return x >= 0 && x < width && y >= 0 && y < height;
+    }
+
+
+    public void UseHint()
+    {
+        if (hintCount <= 0)
+        {
+            return; // No more hints left
+        }
+
+        // Search for an unflagged and unrevealed bomb
+        Cell[,] state = this.state; // Assuming the state array is already declared
+        List<Cell> availableBombs = new List<Cell>();
+
+        int width = state.GetLength(0);
+        int height = state.GetLength(1);
+
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                Cell cell = state[x, y];
+                if (cell.type == Cell.Type.Mine && !cell.flagged && !cell.revealed)
+                {
+                    availableBombs.Add(cell);
+                }
+            }
+        }
+
+        // If we found any bombs, flag one randomly
+        if (availableBombs.Count > 0)
+        {
+            Cell bombCell = availableBombs[Random.Range(0, availableBombs.Count)];
+            bombCell.flagged = true;
+            state[bombCell.position.x, bombCell.position.y] = bombCell;
+
+            // Update the mine count display
+            this.mineCount--;
+            MineCountTxt.SetText(string.Format("Mines Left: {0}", mineCount));
+
+            // Redraw the board and play the flag sound
+            board.Draw(state);
+            audioManager.PlaySFX(audioManager.flag);
+
+            // Display the hint sprite
+            Vector3 cellWorldPosition = board.tilemap.CellToWorld(bombCell.position) + new Vector3(0, 0.5f, 0);
+            StartCoroutine(DisplayHintSprite(cellWorldPosition));
+
+            // Decrement the hint count
+            hintCount--;
+
+            HintCountTxt.SetText(string.Format("Hints: {0}", hintCount));
+        }
+    }
+
+    private IEnumerator DisplayHintSprite(Vector3 position)
+    {
+        // Instantiate the hint sprite at the cell's position
+        GameObject hintSprite = Instantiate(hintSpritePrefab, position, Quaternion.identity);
+
+        // Wait for 3 seconds
+        yield return new WaitForSeconds(3f);
+
+        // Destroy the hint sprite
+        Destroy(hintSprite);
     }
 }

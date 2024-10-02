@@ -525,7 +525,10 @@ MonoBehaviour:
     end screens. \n\n0.0.1.0s4\nAdded a pause menu.\nAdded custom fonts to each text
     field.\nRestylized menu fields.\nAdded a \"0\" in front of seconds on the timer
     when under 10.\nFixed \"gamebreaking\" bug that prevented users from clicking
-    the correct cell."
+    the correct cell.\n\n0.0.1.0s5\nAdded three difficulties with varying timer and
+    hint values\nAdded a bomb counter that decrements when flags are placed\nAdded
+    a Hint button that flags a random cell with a bomb \nAdded a sprite of trumbus
+    that places the hint flag"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -949,7 +952,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 053f454986882424e95311879e99b4fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackScene: StartScreen
+  BackScene: MainMenu
 --- !u!1 &1445044048
 GameObject:
   m_ObjectHideFlags: 0

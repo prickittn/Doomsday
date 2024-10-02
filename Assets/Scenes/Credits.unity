@@ -940,7 +940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2cca73c701dc9c42b4b671b88b356a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackScene: StartScreen
+  BackScene: MainMenu
 --- !u!1 &1445044048
 GameObject:
   m_ObjectHideFlags: 0
