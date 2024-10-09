@@ -528,7 +528,12 @@ MonoBehaviour:
     the correct cell.\n\n0.0.1.0s5\nAdded three difficulties with varying timer and
     hint values\nAdded a bomb counter that decrements when flags are placed\nAdded
     a Hint button that flags a random cell with a bomb \nAdded a sprite of trumbus
-    that places the hint flag"
+    that places the hint flag\n\nUNFINISHED FEATURES:\nAdding audio to every interaction\nConfiguring
+    display for different devices\n\nFUTURE PLANS:\nAdding a mechanic where a random
+    cell is revealed every x seconds, increasing difficulty and causing chaos\nAdding
+    a lives mechanic\nAdding a shop mechanic with various items such as:\n- increased
+    hint count\n- decreased frequency of random cell reveal\n- increased lives\nAdding
+    more detailed, consistent art assets"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
